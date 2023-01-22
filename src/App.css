@@ -1,0 +1,53 @@
+.yj {
+  font-family: sans-serif;
+}
+.heart {
+  color: red;
+}
+.nm {
+  color: aqua;
+}
+.ak {
+  height: 200px;
+  width: 200px;
+  border-radius: 100px;
+  object-fit: cover;
+}
+.emoj {
+  color: red;
+}
+.movie-poster{
+  width: 200px;
+  height: 300px;
+  object-fit: cover;
+}
+.movie-container{
+  width: 200px;
+}
+.flex{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.movie-name{
+  margin: 0px;
+  font-weight: bold;
+  font-size: 25px;
+}
+.movie-summary{
+  margin: 0px;
+}
+.movie-list{
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(200px,1fr));
+  gap: 16px;
+  justify-items: center;
+}
+.button{
+  display: grid;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+
+}
