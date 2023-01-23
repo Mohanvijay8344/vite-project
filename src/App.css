@@ -1,21 +1,6 @@
 .yj {
   font-family: sans-serif;
 }
-.heart {
-  color: red;
-}
-.nm {
-  color: aqua;
-}
-.ak {
-  height: 200px;
-  width: 200px;
-  border-radius: 100px;
-  object-fit: cover;
-}
-.emoj {
-  color: red;
-}
 .movie-poster{
   width: 200px;
   height: 300px;

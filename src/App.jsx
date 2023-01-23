@@ -80,8 +80,8 @@ function MovieList(){
   ];
   return(
     <div className="movie-list">
-        {movieList.map((ml)=>(
-            <Movie movie={ml} />))}
+        {movieList.map((ml, index)=>(
+            <Movie key={index} movie={ml} />))}
     </div>
   )
 }
@@ -89,10 +89,13 @@ function Movie({movie}) {
   const styles = {
     color: movie.rating > 8.5 ? "green" : "red",
   };
-    const [show,setShow] = useState(true)
-    const summaryStyles = {
-      display: show ? "block" : "none",
-    };
+
+  // Manage state || indipendent || Accelerator
+    const [show,setShow] = useState(true);
+  // Derived state || dependent || speedometer
+    // const summaryStyles = {
+    //   display: show ? "block" : "none",
+    // };
     
   return (
     <div className="movie-container">
@@ -102,7 +105,7 @@ function Movie({movie}) {
         <p style={styles} className="movie-rating">⭐ {movie.rating}</p>
       </div>
       <button onClick={()=>setShow(!show)}>Toggle</button>
-      <p style={summaryStyles} className="movie-summary">{movie.summary}</p>
+      {show ? <p className="movie-summary">{movie.summary}</p> : null}
       <Counter />
     </div>
   );
