@@ -1,16 +1,20 @@
 import {useState} from "react"
 import "./App.css";
+import { Color } from "./Color";
+import { Counter } from "./Counter";
+import Button from '@mui/material/Button';
 
 export default function Yj() {
  
   return (
     <div className="yj">
      <MovieList />
+     {/* <Color /> */}
     </div>
   );
 }
 function MovieList(){
-  const movieList = [
+  const [movieList, setMovieList] = useState([
     {
       "name": "Vikram",
       "poster": "https://m.media-amazon.com/images/M/MV5BMmJhYTYxMGEtNjQ5NS00MWZiLWEwN2ItYjJmMWE2YTU1YWYxXkEyXkFqcGdeQXVyMTEzNzg0Mjkx._V1_.jpg",
@@ -77,11 +81,33 @@ function MovieList(){
       "summary": "When Earth becomes uninhabitable in the future, a farmer and ex-NASA\\n pilot, Joseph Cooper, is tasked to pilot a spacecraft, along with a team\\n of researchers, to find a new planet for humans.",
       "rating": 8.8
     }
-  ];
+  ]);
+  const [name, setName] = useState("")
+  const [poster, setPoster] = useState("")
+  const [summary, setSummary] = useState("")
+  const [rating, setRating] = useState("")
+
   return(
-    <div className="movie-list">
-        {movieList.map((ml, index)=>(
-            <Movie key={index} movie={ml} />))}
+    <div>
+      <div className="addmovie">
+        <input onChange={(event) => setName(event.target.value)} type="text" placeholder="Name" />
+        <input onChange={(event) => setPoster(event.target.value)} type="link" placeholder="Image" />
+        <input onChange={(event) => setSummary(event.target.value)} type="text" placeholder="Summary" />
+        <input onChange={(event) => setRating(event.target.value)} type="number" placeholder="Rating" /> 
+        <Button onClick={()=>{
+          const newMovie = {
+            name: name,
+            poster: poster,
+            summary: summary,
+            rating: rating}
+              setMovieList([...movieList, newMovie])
+            }} variant="contained">Add Movie</Button>
+      </div>
+
+      <div className="movie-list">
+          {movieList.map((ml, index)=>(
+              <Movie key={index} movie={ml} />))}
+      </div>
     </div>
   )
 }
@@ -110,21 +136,5 @@ function Movie({movie}) {
     </div>
   );
 }
-
-function Counter(){
-  // let like = 10;
-  const [like, setLike] = useState(0)
-  const [dis, setDis] = useState(0)
-  return (
-    <div className="button">
-      <button onClick={()=>setLike(like+1)}>👍 {like}</button>
-      <button onClick={()=>setDis(dis+1)}>👎 {dis}</button>
-    </div>
-  )
- }
-
-// RAM  => REPEAT AUTOFIT MINMAX
-
-
 
 
