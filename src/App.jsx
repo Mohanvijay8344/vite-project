@@ -2,16 +2,19 @@ import {useState} from "react"
 import "./App.css";
 import { Color } from "./Color";
 import { Counter } from "./Counter";
+import { TicTac } from "./TicTac";
 import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 
 export default function Yj() {
- 
   return (
     <div className="yj">
      <MovieList />
      {/* <Color /> */}
+     {/* <TicTac /> */}
     </div>
-  );
+  )
 }
 function MovieList(){
   const [movieList, setMovieList] = useState([
@@ -90,10 +93,10 @@ function MovieList(){
   return(
     <div>
       <div className="addmovie">
-        <input onChange={(event) => setName(event.target.value)} type="text" placeholder="Name" />
-        <input onChange={(event) => setPoster(event.target.value)} type="link" placeholder="Image" />
-        <input onChange={(event) => setSummary(event.target.value)} type="text" placeholder="Summary" />
-        <input onChange={(event) => setRating(event.target.value)} type="number" placeholder="Rating" /> 
+        <TextField onChange={(event) => setName(event.target.value)} type="text" id="outlined-basic" label="Name" variant="outlined" />
+        <TextField onChange={(event) => setPoster(event.target.value)} type="link" id="outlined-basic" label="Poster" variant="outlined" />
+        <TextField onChange={(event) => setSummary(event.target.value)} type="text" id="outlined-basic" label="Summary" variant="outlined" />  
+        <TextField onChange={(event) => setRating(event.target.value)} type="number" id="outlined-basic" label="Rating" variant="outlined" />      
         <Button onClick={()=>{
           const newMovie = {
             name: name,
@@ -101,7 +104,7 @@ function MovieList(){
             summary: summary,
             rating: rating}
               setMovieList([...movieList, newMovie])
-            }} variant="contained">Add Movie</Button>
+            }} variant="contained">Add Movie</Button> 
       </div>
 
       <div className="movie-list">
@@ -113,6 +116,7 @@ function MovieList(){
 }
 function Movie({movie}) {
   const styles = {
+    fontWeight: "bold",
     color: movie.rating > 8.5 ? "green" : "red",
   };
 
@@ -130,11 +134,11 @@ function Movie({movie}) {
         <h2 className="movie-name">{movie.name}</h2>
         <p style={styles} className="movie-rating">⭐ {movie.rating}</p>
       </div>
-      <button onClick={()=>setShow(!show)}>Toggle</button>
+      
+      <ArrowDropUpIcon onClick={()=>setShow(!show)}>Toggle</ArrowDropUpIcon>
       {show ? <p className="movie-summary">{movie.summary}</p> : null}
       <Counter />
     </div>
   );
 }
-
 
