@@ -2,12 +2,12 @@
   font-family: sans-serif;
 }
 .movie-poster{
-  width: 200px;
-  height: 300px;
+  width: 250px;
+  height: 350px;
   object-fit: cover;
 }
 .movie-container{
-  width: 200px;
+  width: 250px;
   height: min-content;
 }
 .flex{
@@ -26,8 +26,8 @@
 }
 .movie-list{
   display: grid;
-  grid-template-columns: repeat(auto-fit,minmax(200px,1fr));
-  gap: 16px;
+  grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
+  gap: 30px;
   justify-items: center;
 }
 .button{
@@ -52,6 +52,7 @@
   border: 1px solid black;
   font-size: 50px;
 
+
   display: flex;
   align-items: center;
   justify-content: center;
@@ -64,8 +65,22 @@
   display: grid;
   grid-template-columns: repeat(3,1fr);
   width: min-content;
-  margin: 0 auto;
+  margin: 10px auto;
 }
 .tic{
   text-align: center;
+}
+.notfound{
+  width: 100%;
+  object-fit: cover;
+  max-width: 600%;
+  margin: 0 auto;
+}
+.movie-detail-container{
+  max-width: 650px;
+  margin: 10px;
+
+}
+.back{
+  margin: 10px auto;
 }
