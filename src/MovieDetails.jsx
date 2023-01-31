@@ -3,6 +3,7 @@ import { useState } from "react";
 import { MovieList } from "./MovieList";
 import { useNavigate } from "react-router-dom";
 import Button from "@mui/material/Button";
+import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 
 
 export function MovieDetails({ movieList }) {
@@ -32,7 +33,7 @@ export function MovieDetails({ movieList }) {
           </p>
         </div>
         <p className="movie-summary">{movie.summary}</p>
-        <Button variant="contained" className="back" onClick={()=>navigate(-1)}>Back</Button>
+        <Button variant="contained" startIcon={<KeyboardBackspaceIcon />} onClick={()=>navigate(-1)}>Back</Button>
       </div>
     </div>
   );

@@ -1,5 +1,6 @@
 .yj {
   font-family: sans-serif;
+
 }
 .movie-poster{
   width: 250px;
@@ -23,6 +24,7 @@
 .movie-summary{
   margin: 0px;
   font-size: 13px;
+  margin: 0px 0px 15px;
 }
 .movie-list{
   display: grid;
@@ -35,9 +37,10 @@
   align-content: center;
   align-items: center;
 }
-/* body{
-  background-color: rgb(0, 255, 242);
-} */
+body{
+  margin:  0px;
+
+}
 
 .addmovie{
   display: flex;
@@ -83,4 +86,7 @@
 }
 .back{
   margin: 10px auto;
+}
+.mode{
+  margin-left: auto;
 }

@@ -5,8 +5,20 @@ import { Routes, Route, Link } from "react-router-dom";
 import CardMedia from "@mui/material/CardMedia";
 import { MovieList } from "./MovieList";
 import { MovieDetails } from "./MovieDetails";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import AppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+import IconButton from '@mui/material/IconButton';
+import MenuIcon from '@mui/icons-material/Menu';
+import { useNavigate } from "react-router-dom";
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import Paper from '@mui/material/Paper';
+
 // import ResponsiveAppBar from "./nav";
+
 const Initial_Movie_List = [
   {
     "id": "99",
@@ -98,32 +110,49 @@ const Initial_Movie_List = [
   }
 ]
 
+useEffect(()=>{
+  fetch("https://63d75fbcafbba6b7c93beb74.mockapi.io/movies")
+  .then((data) => data.json())
+  .then((mvs)=> console.log(mvs))
+},[])
+
+
+
 export default function Yj() {
 
   const [movieList, setMovieList] = useState(Initial_Movie_List);
+  const navigate = useNavigate();
+  const [mode,setMode] = useState("light")
+
+  const darkTheme = createTheme({
+    palette: {
+      mode: 'dark',
+    },
+  });
 
   return (
-    <div className="yj">
-      {/* <MovieList /> */}
-      {/* <Color /> */}
-      {/* <TicTac /> */}
-      {/* <ResponsiveAppBar /> */}
-      <nav>
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/MovieList">Movie list</Link>
-          </li>
-          <li>
-            <Link to="/tictac">tic-tac-toe</Link>
-          </li>
-          <li>
-            <Link to="/color">color Game</Link>
-          </li>
-        </ul>
-      </nav>
+    <ThemeProvider theme={darkTheme}>
+      <Paper elevation={3}>
+        <div className="yj">
+      <AppBar position="static">
+        <Toolbar>
+          <IconButton
+            size="large"
+            edge="start"
+            color="inherit"
+            aria-label="menu"
+            sx={{ mr: 2 }}
+          >
+            <MenuIcon />
+          </IconButton>
+          <Button color="inherit" onClick={()=>navigate("/")}>Home</Button>
+          <Button color="inherit" onClick={()=>navigate("/MovieList")}>Movie List</Button>
+          <Button color="inherit" onClick={()=>navigate("/tictac")}>Tic-Tac</Button>
+          <Button color="inherit" onClick={()=>navigate("/color")}>Color Game</Button>
+          <Button color="inherit" onClick={()=>navigate("/")}>Light Mode</Button>
+        </Toolbar>
+      </AppBar>
+    
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/MovieList" element={<MovieList movieList={movieList} setMovieList={setMovieList} />} />
@@ -132,9 +161,12 @@ export default function Yj() {
         <Route path="*" element={<NotFound />} />
         <Route path="/movies/:id" element={<MovieDetails movieList={movieList} />} />
       </Routes>
-    </div>
+        </div>
+      </Paper>
+    </ThemeProvider> 
   );
 }
+
 function Home() {
   return (
     <div>
