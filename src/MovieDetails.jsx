@@ -1,15 +1,23 @@
 import { useParams } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { MovieList } from "./MovieList";
 import { useNavigate } from "react-router-dom";
 import Button from "@mui/material/Button";
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 
 
-export function MovieDetails({ movieList }) {
+export function MovieDetails() {
   const { id } = useParams();
-  const movie = movieList[id];
-  console.log(movie);
+  
+  const [movie, setMovieList] = useState({});
+
+  useEffect(()=>{
+    fetch(`https://63d75fbcafbba6b7c93beb74.mockapi.io/movies/${id}`)
+    .then((data) => data.json())
+    .then((mvs)=> setMovieList(mvs))
+    },[])
+
+  // console.log(movie);
   const styles = {
     color: movie.rating > 8.5 ? "green" : "red",
   };
