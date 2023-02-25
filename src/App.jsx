@@ -6,19 +6,21 @@ import CardMedia from "@mui/material/CardMedia";
 import { MovieList } from "./MovieList";
 import { MovieDetails } from "./MovieDetails";
 import { useEffect, useState } from "react";
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
+import IconButton from "@mui/material/IconButton";
+import MenuIcon from "@mui/icons-material/Menu";
 import { useNavigate } from "react-router-dom";
-import { ThemeProvider, createTheme } from '@mui/material/styles';
-import Paper from '@mui/material/Paper';
-import Brightness4Icon from '@mui/icons-material/Brightness4';
-import Brightness7Icon from '@mui/icons-material/Brightness7';
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+import Paper from "@mui/material/Paper";
+import Brightness4Icon from "@mui/icons-material/Brightness4";
+import Brightness7Icon from "@mui/icons-material/Brightness7";
 import { AddMovie } from "./AddMovie";
+import { BasicForm } from "./BasicForm";
+import { EditMovie } from "./EditMovie";
 
 // import ResponsiveAppBar from "./nav";
 
@@ -113,61 +115,84 @@ import { AddMovie } from "./AddMovie";
 //   }
 // ]
 
-
 export default function Yj() {
-
   const [movieList, setMovieList] = useState([]);
 
-  
   const navigate = useNavigate();
-  const [mode,setMode] = useState("dark")
+  const [mode, setMode] = useState("dark");
   const darkTheme = createTheme({
     palette: {
       mode: mode,
     },
   });
 
-  const bgStyles={
+  const bgStyles = {
     minHeight: "100vh",
     borderRadius: "0px",
-  }
+  };
 
   return (
     <ThemeProvider theme={darkTheme}>
       <Paper sx={bgStyles} elevation={3}>
         <div className="yj">
-      <AppBar position="static">
-        <Toolbar>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            sx={{ mr: 2 }}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Button color="inherit" onClick={()=>navigate("/")}>Home</Button>
-          <Button color="inherit" onClick={()=>navigate("/MovieList")}>Movie List</Button>
-          <Button color="inherit" onClick={()=>navigate("/tictac")}>Tic-Tac</Button>
-          <Button color="inherit" onClick={()=>navigate("/color")}>Color Game</Button>
-          <Button color="inherit" onClick={()=>navigate("/AddMovie")}>Add Movie Lists</Button>
-          <Button id="mode" color="inherit" onClick={()=>setMode(mode === "light" ? 'dark' : 'light')} >{(mode === "light" ? '🌙 dark' : '💡 light')} Mode</Button>
-        </Toolbar>
-      </AppBar>
-    
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/MovieList" element={<MovieList />} />
-        <Route path="/color" element={<Color />} />
-        <Route path="/tictac" element={<TicTac />} />
-        <Route path="*" element={<NotFound />} />
-        <Route path="/movies/:id" element={<MovieDetails movieList={movieList} />} />
-        <Route path="/AddMovie" element={<AddMovie movieList={movieList} setMovieList={setMovieList} />} />
-      </Routes>
+          <AppBar position="static">
+            <Toolbar>
+              <IconButton
+                size="large"
+                edge="start"
+                color="inherit"
+                aria-label="menu"
+                sx={{ mr: 2 }}
+              >
+                <MenuIcon />
+              </IconButton>
+              <Button color="inherit" onClick={() => navigate("/")}>
+                Home
+              </Button>
+              <Button color="inherit" onClick={() => navigate("/MovieList")}>
+                Movie List
+              </Button>
+              <Button color="inherit" onClick={() => navigate("/tictac")}>
+                Tic-Tac
+              </Button>
+              <Button color="inherit" onClick={() => navigate("/color")}>
+                Color Game
+              </Button>
+              <Button color="inherit" onClick={() => navigate("/AddMovie")}>
+                Add Movie Lists
+              </Button>
+              <Button
+                id="mode"
+                color="inherit"
+                onClick={() => setMode(mode === "light" ? "dark" : "light")}
+              >
+                {mode === "light" ? "🌙 dark" : "💡 light"} Mode
+              </Button>
+            </Toolbar>
+          </AppBar>
+
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/MovieList" element={<MovieList />} />
+            <Route path="/color" element={<Color />} />
+            <Route path="/tictac" element={<TicTac />} />
+            <Route path="*" element={<NotFound />} />
+            <Route path="Basic-form" element={<BasicForm />} />
+            <Route path="/MovieList/edit/:id" element={<EditMovie />} />
+            <Route
+              path="/movies/:id"
+              element={<MovieDetails movieList={movieList} />}
+            />
+            <Route
+              path="/AddMovie"
+              element={
+                <AddMovie movieList={movieList} setMovieList={setMovieList} />
+              }
+            />
+          </Routes>
         </div>
       </Paper>
-    </ThemeProvider> 
+    </ThemeProvider>
   );
 }
 
@@ -188,4 +213,3 @@ function NotFound() {
     ></img>
   );
 }
-

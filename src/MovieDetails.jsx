@@ -3,19 +3,20 @@ import { useEffect, useState } from "react";
 import { MovieList } from "./MovieList";
 import { useNavigate } from "react-router-dom";
 import Button from "@mui/material/Button";
-import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
+import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
+import { API } from "./global"
 
 
 export function MovieDetails() {
   const { id } = useParams();
-  
+
   const [movie, setMovieList] = useState({});
 
-  useEffect(()=>{
-    fetch(`https://63d75fbcafbba6b7c93beb74.mockapi.io/movies/${id}`)
-    .then((data) => data.json())
-    .then((mvs)=> setMovieList(mvs))
-    },[])
+  useEffect(() => {
+    fetch(`${API}/movies/${id}`)
+      .then((data) => data.json())
+      .then((mvs) => setMovieList(mvs));
+  }, [id]);
 
   // console.log(movie);
   const styles = {
@@ -41,7 +42,13 @@ export function MovieDetails() {
           </p>
         </div>
         <p className="movie-summary">{movie.summary}</p>
-        <Button variant="contained" startIcon={<KeyboardBackspaceIcon />} onClick={()=>navigate(-1)}>Back</Button>
+        <Button
+          variant="contained"
+          startIcon={<KeyboardBackspaceIcon />}
+          onClick={() => navigate(-1)}
+        >
+          Back
+        </Button>
       </div>
     </div>
   );

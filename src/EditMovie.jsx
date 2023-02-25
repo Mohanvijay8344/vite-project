@@ -1,10 +1,12 @@
-import { useState } from "react";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import { Navigate, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as yup from "yup";
-import { API } from "./global"
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { API } from "./global";
+
 
 const formValidationSchema = yup.object({
   name: yup.string().required(),
@@ -14,33 +16,43 @@ const formValidationSchema = yup.object({
   trailer: yup.string().required().min(4).url(),
 });
 
-export function AddMovie() {
-  // const [name, setName] = useState("");
-  // const [poster, setPoster] = useState("");
-  // const [summary, setSummary] = useState("");
-  // const [rating, setRating] = useState("");
-  // const [trailer, setTrailer] = useState("");
+export function EditMovie() {
+  const { id } = useParams();
+  const [movie, setMovieList] = useState(null);
+
+  useEffect(() => {
+    fetch(`${API}/movies/${id}`)
+      .then((data) => data.json())
+      .then((mvs) => setMovieList(mvs));
+  }, [id]);
+  console.log(movie);
+
+  return movie ? <EditMovieForm movie={movie} /> : <h1>Loading</h1>;
+}
+
+function EditMovieForm({ movie }) {
   const { handleSubmit, handleChange, handleBlur, values, touched, errors } =
     useFormik({
       initialValues: {
-        name: "hi",
-        poster: "",
-        summary: "raj",
-        rating: "10",
-        trailer: "",
+        name: movie.name,
+        poster: movie.poster,
+        summary: movie.summary,
+        rating: movie.rating,
+        trailer: movie.trailer,
       },
       validationSchema: formValidationSchema,
-      onSubmit: (newMovie) => {
-        console.log("Form values", newMovie), addMovie(newMovie);
+      onSubmit: (updatedMovie) => {
+        console.log("Form values", updatedMovie), addMovie(updatedMovie);
       },
     });
-  const navigate = useNavigate();
-  const addMovie = async (newMovie) => {
-    console.log(newMovie);
 
-    await fetch(`${API}/movies/`, {
-      method: "POST",
-      body: JSON.stringify(newMovie),
+  const navigate = useNavigate();
+  const addMovie = async (updatedMovie) => {
+    console.log(updatedMovie);
+
+    await fetch(`${API}/movies/${movie.id}`, {
+      method: "PUT",
+      body: JSON.stringify(updatedMovie),
       headers: {
         "Content-Type": "application/json",
       },
@@ -114,8 +126,13 @@ export function AddMovie() {
         helperText={touched.rating && errors.rating ? errors.rating : null}
       />
 
-      <Button type="submit" onSubmit={handleSubmit} variant="contained">
-        Add Movie
+      <Button
+        type="submit"
+        onSubmit={handleSubmit}
+        variant="contained"
+        color="success"
+      >
+        Save
       </Button>
     </form>
   );
