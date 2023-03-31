@@ -50,7 +50,7 @@ function EditMovieForm({ movie }) {
   const addMovie = async (updatedMovie) => {
     console.log(updatedMovie);
 
-    await fetch(`${API}/movies/${movie.id}`, {
+    await fetch(`${API}/movies/${movie._id}`, {
       method: "PUT",
       body: JSON.stringify(updatedMovie),
       headers: {

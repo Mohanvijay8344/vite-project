@@ -9,10 +9,11 @@ import { API } from "./global";
 
 export function MovieList() {
   const getMovies = () => {
-    fetch(`${API}/movies/`, { method: "GET" })
+    fetch(`${API}/movies`, { method: "GET" })
       .then((data) => data.json())
       .then((mvs) => setMovieList(mvs));
   };
+  console.log(API)
 
   const [movieList, setMovieList] = useState([]);
 
@@ -28,15 +29,14 @@ export function MovieList() {
     <div>
       <div className="movie-list">
         {movieList.map((ml) => (
-          <Movie
-            key={ml.id}
+          <Movie key={ml._id}
             movie={ml}
-            id={ml.id}
+            id={ml._id}
             deleteButton={
               <DeleteIcon
                 className="delete"
                 color="error"
-                onClick={() => dltmv(ml.id)}
+                onClick={() => dltmv(ml._id)}
               >
                 Delete
               </DeleteIcon>
@@ -45,7 +45,7 @@ export function MovieList() {
               <EditIcon
                 className="delete"
                 color="secondary"
-                onClick={() => navigate(`/MovieList/edit/${ml.id}`)}
+                onClick={() => navigate(`/MovieList/edit/${ml._id}`)}
               >
                 edit
               </EditIcon>
